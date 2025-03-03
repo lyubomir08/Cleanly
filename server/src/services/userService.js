@@ -60,7 +60,7 @@ const loginUser = async (email, password) => {
 const getUserProfile = async (userId) => {
     const user = await User.findById(userId).select('-password');
 
-    if(!user) {
+    if (!user) {
         throw new Error('User not found');
     }
 
@@ -71,14 +71,20 @@ const getUserProfile = async (userId) => {
         username: user.username,
         email: user.email,
         role: user.role,
-        servicesUsed: bookings.map(booking => ({
-            serviceId: booking.service._id,
-            name: booking.service.name,
-            description: booking.service.description,
-            price: booking.service.price,
+        bookings: bookings.map(booking => ({
+            bookingId: booking._id,
+            service: booking.service
+                ? {
+                    serviceId: booking.service._id,
+                    name: booking.service.name,
+                    description: booking.service.description,
+                    price: booking.service.price,
+                }
+                : null,
             date: booking.date,
             time: booking.time,
             status: booking.status,
+            createdAt: booking.createdAt,
         })),
     };
 };
