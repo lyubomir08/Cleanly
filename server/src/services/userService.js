@@ -1,5 +1,5 @@
-import User from "../models/User";
-import Booking from "../models/Booking";
+import User from "../models/User.js";
+import Booking from "../models/Booking.js";
 import bcrypt from "bcryptjs";
 import jwt from "../utils/jwt.js";
 import dotenv from "dotenv";
