@@ -31,6 +31,7 @@ app.post("/api/auth/register", userController.register);
 app.post("/api/auth/login", userController.login);
 app.post("/api/auth/logout", authMiddleware, userController.logout);
 app.get("/api/users/profile", authMiddleware, userController.getProfile);
+app.get("/api/admin/users", authMiddleware, userController.getAllUsers);
 
 app.get("/api/services", serviceController.getAllServices);
 app.get("/api/services/:id", serviceController.getServiceById);
