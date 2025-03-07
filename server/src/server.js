@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 
 import userController from "./controllers/userController.js";
 import serviceController from "./controllers/serviceController.js";
-// import bookingController from "./controllers/bookingController.js";
+import bookingController from "./controllers/bookingController.js";
 
 import authMiddleware from "./middlewares/authMiddleware.js";
 
@@ -40,11 +40,11 @@ app.delete("/api/services/:id", authMiddleware, serviceController.deleteService)
 app.post("/api/services/:id/like", authMiddleware, serviceController.likeService);
 app.post("/api/services/:id/dislike", authMiddleware, serviceController.dislikeService);
 
-// app.post("/api/bookings", authMiddleware, bookingController.createBooking);
-// app.get("/api/bookings", authMiddleware, bookingController.getUserBookings);
-// app.get("/api/admin/bookings", authMiddleware, bookingController.getAllBookings);
-// app.put("/api/bookings/:id/status", authMiddleware, bookingController.updateBookingStatus);
-// app.delete("/api/bookings/:id", authMiddleware, bookingController.deleteBooking);
+app.post("/api/bookings", authMiddleware, bookingController.createBooking);
+app.get("/api/admin/bookings", authMiddleware, bookingController.getPendingBookings);
+app.put("/api/bookings/:id/status", authMiddleware, bookingController.updateBookingStatus);
+app.delete("/api/bookings/:id", authMiddleware, bookingController.deleteUserBooking);
+app.delete("/api/admin/bookings/:id", authMiddleware, bookingController.deleteBooking);
 
 const connectDB = async () => {
     try {
