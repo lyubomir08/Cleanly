@@ -89,8 +89,13 @@ const getUserProfile = async (userId) => {
     };
 };
 
+const getAllUsers = async () => {
+    return await User.find().select('-password');
+};
+
 export default {
     registerUser,
     loginUser,
     getUserProfile,
+    getAllUsers,
 };

@@ -37,9 +37,23 @@ const getProfile = async (req, res) => {
     }
 };
 
+const getAllUsers = async (req, res) => {
+    try {
+        if(!req.isAdmin) {
+            return res.status(403).json({ message: 'Access denied. Admin only.' });
+        }
+
+        const users = await userService.getAllUsers();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
+
 export default {
     register,
     login,
     logout,
     getProfile,
+    getAllUsers,
 };
