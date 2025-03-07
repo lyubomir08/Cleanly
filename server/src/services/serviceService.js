@@ -27,10 +27,42 @@ const deleteService = async (serviceId) => {
     return { message: "Service deleted successfully" };
 };
 
+const likeService = async (serviceId, userId) => {
+    const service = await Service.findById(serviceId);
+    if (!service) throw new Error("Service not found");
+
+    if(service.likes.includes(userId)) {
+        service.likes = service.likes.filter(id => id.toString() !== userId);
+    } else {
+        service.likes.push(userId);
+        service.dislikes = service.dislikes.filter(id => id.toString() !== userId);
+    }
+
+    await service.save();
+    return service;
+};
+
+const dislikeService = async (serviceId, userId) => {
+    const service = await Service.findById(serviceId);
+    if (!service) throw new Error("Service not found");
+
+    if(service.dislikes.includes(userId)) {
+        service.dislikes = service.dislikes.filter(id => id.toString() !== userId);
+    } else {
+        service.dislikes.push(userId);
+        service.likes = service.likes.filter(id => id.toString() !== userId);
+    }
+
+    await service.save();
+    return service;
+};
+
 export default {
     createService,
     getAllServices,
     getServiceById,
     updateService,
     deleteService,
+    likeService,
+    dislikeService,
 };
