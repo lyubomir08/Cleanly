@@ -57,10 +57,30 @@ const deleteService = async (req, res) => {
     }
 };
 
+const likeService = async (req, res) => {
+    try {
+        const service = await serviceService.likeService(req.params.id, req.userId);
+        res.status(200).json(service);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+const dislikeService = async (req, res) => {
+    try {
+        const service = await serviceService.dislikeService(req.params.id, req.userId);
+        res.status(200).json(service);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
 export default {
     createService,
     getAllServices,
     getServiceById,
     updateService,
     deleteService,
+    likeService,
+    dislikeService,
 };
