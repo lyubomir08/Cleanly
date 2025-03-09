@@ -31,7 +31,7 @@ const likeService = async (serviceId, userId) => {
     const service = await Service.findById(serviceId);
     if (!service) throw new Error("Service not found");
 
-    if(service.likes.includes(userId)) {
+    if (service.likes.includes(userId)) {
         service.likes = service.likes.filter(id => id.toString() !== userId);
     } else {
         service.likes.push(userId);
@@ -46,7 +46,7 @@ const dislikeService = async (serviceId, userId) => {
     const service = await Service.findById(serviceId);
     if (!service) throw new Error("Service not found");
 
-    if(service.dislikes.includes(userId)) {
+    if (service.dislikes.includes(userId)) {
         service.dislikes = service.dislikes.filter(id => id.toString() !== userId);
     } else {
         service.dislikes.push(userId);
@@ -57,6 +57,20 @@ const dislikeService = async (serviceId, userId) => {
     return service;
 };
 
+const filterServices = async (filters) => {
+    const query = {};
+
+    if (filters.name) {
+        query.name = { $regex: filters.name, $options: "i" };
+    } else if (filters.minPrice !== undefined) {
+        query.price = { $gte: filters.minPrice };
+    } else if (filters.maxPrice !== undefined) {
+        query.price = { $lte: filters.maxPrice };
+    }
+
+    return await Service.find(query);
+};
+
 export default {
     createService,
     getAllServices,
@@ -65,4 +79,5 @@ export default {
     deleteService,
     likeService,
     dislikeService,
+    filterServices,
 };

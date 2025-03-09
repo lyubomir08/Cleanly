@@ -75,6 +75,16 @@ const dislikeService = async (req, res) => {
     }
 };
 
+const filterServices = async (req, res) => {
+    try {
+        const filters = req.query;
+        const services = await serviceService.filterServices(filters);
+        res.status(200).json(services);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
 export default {
     createService,
     getAllServices,
@@ -83,4 +93,5 @@ export default {
     deleteService,
     likeService,
     dislikeService,
+    filterServices,
 };
