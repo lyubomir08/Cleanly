@@ -19,11 +19,17 @@ const updateBookingStatus = async (bookingId, status) => {
 };
 
 const deleteUserBooking = async (userId, bookingId) => {
-    const booking = await Booking.findOneAndDelete({ _id: bookingId, user: userId });
+    const booking = await Booking.findOne({ _id: bookingId, user: userId });
 
     if (!booking) {
         throw new Error("Booking not found or access denied");
     }
+
+    if (booking.status !== "pending") {
+        throw new Error("Only pending bookings can be deleted");
+    }
+
+    await Booking.deleteOne({ _id: bookingId });
 
     return { message: "Booking deleted successfully" };
 };
