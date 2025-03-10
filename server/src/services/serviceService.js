@@ -62,13 +62,22 @@ const filterServices = async (filters) => {
 
     if (filters.name) {
         query.name = { $regex: filters.name, $options: "i" };
-    } else if (filters.minPrice !== undefined) {
+    }
+    if (filters.minPrice !== undefined) {
         query.price = { $gte: filters.minPrice };
-    } else if (filters.maxPrice !== undefined) {
+    }
+    if (filters.maxPrice !== undefined) {
         query.price = { $lte: filters.maxPrice };
     }
 
-    return await Service.find(query);
+    const sortOption = {};
+    if (filters.sortBy === "newest") {
+        sortOption = { createdAt: -1 };
+    } else if (filters.sortBy === "oldest") {
+        sortOption = { createdAt: 1 };
+    }
+
+    return await Service.find(query).sort(sortOption);
 };
 
 export default {
