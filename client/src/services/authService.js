@@ -1,10 +1,12 @@
-import { get, post } from "../api/api.js";
+import { get, post } from "./api.js";
 import { setUserData, clearUserData } from "../utils/storage.js";
 
 const endpoints = {
     login: "/auth/login",
     register: "/auth/register",
     logout: "/auth/logout",
+    profile: "/users/profile",
+    allUsers: "/admin/users",
 };
 
 export async function login(email, password) {
@@ -38,4 +40,12 @@ export async function register(username, email, password, rePassword) {
 export async function logout() {
     await get(endpoints.logout);
     clearUserData();
+}
+
+export async function getProfile() {
+    return await get(endpoints.profile);
+}
+
+export async function getAllUsers() {
+    return await get(endpoints.allUsers);
 }
