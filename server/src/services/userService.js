@@ -18,56 +18,61 @@ const generateToken = (user) => {
 const registerUser = async (username, email, password, rePassword) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-        throw new Error('A user with this email already exists');
+        throw new Error("A user with this email already exists");
     }
 
     if (rePassword !== password) {
-        throw new Error('Passwords do not match');
+        throw new Error("Passwords do not match");
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({ username, email, password: hashedPassword, role: "user" });
 
+    const token = generateToken(newUser);
+
     return {
-        id: newUser._id,
+        _id: newUser._id,
         username: newUser.username,
         email: newUser.email,
+        role: newUser.role,
+        token,
     };
 };
 
 const loginUser = async (email, password) => {
     const user = await User.findOne({ email });
     if (!user) {
-        throw new Error('Invalid email or password');
+        throw new Error("Invalid email or password");
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        throw new Error('Invalid email or password');
+        throw new Error("Invalid email or password");
     }
 
-    const token = await generateToken(user);
+    const token = generateToken(user);
 
     return {
-        id: user._id,
+        _id: user._id,
         username: user.username,
         email: user.email,
+        role: user.role,
         token,
     };
 };
 
 const getUserProfile = async (userId) => {
-    const user = await User.findById(userId).select('-password');
+    const user = await User.findById(userId).select("-password");
 
     if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
     }
 
-    const bookings = await Booking.find({ user: userId }).populate('service');
+    const bookings = await Booking.find({ user: userId }).populate("service");
 
     return {
-        id: user._id,
+        _id: user._id,
         username: user.username,
         email: user.email,
         role: user.role,
@@ -90,7 +95,7 @@ const getUserProfile = async (userId) => {
 };
 
 const getAllUsers = async () => {
-    return await User.find().select('-password');
+    return await User.find().select("-password -__v");
 };
 
 export default {
