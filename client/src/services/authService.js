@@ -1,4 +1,4 @@
-import { get, post } from "./api.js";
+import { get, post } from "../api/api.js";
 import { setUserData, clearUserData } from "../utils/storage.js";
 
 const endpoints = {
@@ -11,24 +11,24 @@ export async function login(email, password) {
     const result = await post(endpoints.login, { email, password });
 
     setUserData({
-        _id: result.user._id,
-        username: result.user.username,
-        email: result.user.email,
-        role: result.user.role,
+        _id: result._id,
+        username: result.username,
+        email: result.email,
+        role: result.role,
         token: result.token,
     });
 
     return result;
 }
 
-export async function register(username, email, password) {
-    const result = await post(endpoints.register, { username, email, password });
+export async function register(username, email, password, rePassword) {
+    const result = await post(endpoints.register, { username, email, password, rePassword });
 
     setUserData({
-        _id: result.user._id,
-        username: result.user.username,
-        email: result.user.email,
-        role: result.user.role,
+        _id: result._id,
+        username: result.username,
+        email: result.email,
+        role: result.role,
         token: result.token,
     });
 
