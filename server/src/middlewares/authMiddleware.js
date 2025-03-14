@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
 
@@ -11,9 +11,8 @@ const authMiddleware = (req, res, next) => {
             return res.status(401).json({ message: "Not authenticated. Token is missing." });
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
-
+        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;     
         req.isAdmin = decoded.role === "admin";
 
         next();
