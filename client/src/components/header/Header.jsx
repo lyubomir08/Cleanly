@@ -17,10 +17,13 @@ export default function Header() {
 
                         {user ? (
                             <>
+                                {user.role === "admin" && (
+                                    <li><Link to="/services/add" className="hover:text-gray-300 transition">Add</Link></li>
+                                )}
+                                <li><Link to="/profile" className="hover:text-gray-300 transition">Profile</Link></li>
                                 <li className="hover:text-gray-300 transition cursor-pointer" onClick={logout}>
                                     Logout
                                 </li>
-                                <li><Link to="/profile" className="hover:text-gray-300 transition">Profile</Link></li>
                             </>
                         ) : (
                             <>
