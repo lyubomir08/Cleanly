@@ -29,7 +29,7 @@ const registerUser = async (username, email, password, rePassword) => {
 
     const newUser = await User.create({ username, email, password: hashedPassword, role: "user" });
 
-    const token = generateToken(newUser);
+    const token = await generateToken(newUser);
 
     return {
         _id: newUser._id,
