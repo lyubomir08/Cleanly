@@ -30,7 +30,7 @@ export default function Register() {
         <div className="flex items-center justify-center py-12 w-full">
             <div className="bg-white p-8 rounded-lg shadow-xl shadow-gray-400/50 w-96">
                 <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Sign Up</h2>
-                <form action={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-700">Username</label>
                         <input type="text" value={formData.username} onChange={handleChange} name="username" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600" />

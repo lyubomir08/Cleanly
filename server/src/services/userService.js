@@ -51,7 +51,7 @@ const loginUser = async (email, password) => {
         throw new Error("Invalid email or password");
     }
 
-    const token = generateToken(user);
+    const token = await generateToken(user);
 
     return {
         _id: user._id,
