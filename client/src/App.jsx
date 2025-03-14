@@ -5,6 +5,7 @@ import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
+import ServiceCreate from "./components/service/service-create/ServiceCreate.jsx";
 
 import "./App.css";
 
@@ -16,6 +17,7 @@ function App() {
                 <main className="flex-grow flex items-center justify-center">
                     <Routes>
                         <Route path="/" element={<Home />} />
+                        <Route path="/services/add" element={<ServiceCreate />}/>
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                     </Routes>
