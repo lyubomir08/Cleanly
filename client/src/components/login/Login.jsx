@@ -1,6 +1,6 @@
 export default function Login() {
     return (
-        <div className="flex items-center justify-center py-12 w-full bg-white">
+        <div className="flex items-center justify-center py-12 w-full">
             <div className="bg-white p-8 rounded-lg shadow-xl shadow-gray-400/50 w-96">
                 <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Login</h2>
                 <form>
