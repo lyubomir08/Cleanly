@@ -17,7 +17,7 @@ export default function Home() {
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">Our Services</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 place-items-center">
                     <div className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center text-center w-72">
-                        <img src="https://source.unsplash.com/200x150/?cleaning" alt="Home Cleaning" className="rounded-md mb-2" />
+                        {/* <img src="https://source.unsplash.com/200x150/?cleaning" alt="Home Cleaning" className="rounded-md mb-2" /> */}
                         <h3 className="text-lg font-semibold text-gray-800">Home Cleaning</h3>
                         <p className="text-gray-600 mt-1">
                             Enjoy a sparkling clean home with our professional deep cleaning services.
@@ -25,7 +25,7 @@ export default function Home() {
                     </div>
 
                     <div className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center text-center w-72">
-                        <img src="https://source.unsplash.com/200x150/?office" alt="Office Cleaning" className="rounded-md mb-2" />
+                        {/* <img src="https://source.unsplash.com/200x150/?office" alt="Office Cleaning" className="rounded-md mb-2" /> */}
                         <h3 className="text-lg font-semibold text-gray-800">Office Cleaning</h3>
                         <p className="text-gray-600 mt-1">
                             Keep your workspace neat and professional with our expert office cleaning solutions.
@@ -33,7 +33,7 @@ export default function Home() {
                     </div>
 
                     <div className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center text-center w-72">
-                        <img src="https://source.unsplash.com/200x150/?carpet" alt="Carpet Cleaning" className="rounded-md mb-2" />
+                        {/* <img src="https://source.unsplash.com/200x150/?carpet" alt="Carpet Cleaning" className="rounded-md mb-2" /> */}
                         <h3 className="text-lg font-semibold text-gray-800">Carpet & Upholstery</h3>
                         <p className="text-gray-600 mt-1">
                             Extend the life of your carpets and furniture with our specialized cleaning services.
