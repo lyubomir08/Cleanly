@@ -1,6 +1,6 @@
-import { createContext, useState, useEffect } from 'react';
-import { getUserData, clearUserData } from '../utils/storage.js';
-import { login as apiLogin, register as apiRegister, logout as apiLogout } from '../services/authService.js';
+import { createContext, useState, useEffect } from "react";
+import { getUserData, clearUserData } from "../utils/storage.js";
+import { login as apiLogin, register as apiRegister, logout as apiLogout } from "../services/authService.js";
 
 export const UserContext = createContext();
 
@@ -9,7 +9,6 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         const storedUser = getUserData();
-
         if (storedUser) {
             setUser(storedUser);
         }
@@ -27,7 +26,7 @@ export const UserProvider = ({ children }) => {
 
     const logout = async () => {
         await apiLogout();
-        clearUserData(null);
+        clearUserData();
         setUser(null);
     };
 
