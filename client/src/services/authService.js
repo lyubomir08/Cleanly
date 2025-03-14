@@ -38,7 +38,8 @@ export async function register(username, email, password, rePassword) {
 }
 
 export async function logout() {
-    await get(endpoints.logout);
+    await post(endpoints.logout, {});
+
     clearUserData();
 }
 

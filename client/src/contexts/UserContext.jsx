@@ -26,7 +26,6 @@ export const UserProvider = ({ children }) => {
 
     const logout = async () => {
         await apiLogout();
-        clearUserData();
         setUser(null);
     };
 
