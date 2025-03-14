@@ -1,7 +1,9 @@
 export default function Footer() {
     return (
-        <footer className="bg-gray-800 text-gray-300 text-center py-4">
-            <p>&copy; {new Date().getFullYear()} Cleanify. All rights reserved.</p>
+        <footer className="bg-gray-800 text-white py-4">
+            <div className="container mx-auto text-center">
+                <p>&copy; {new Date().getFullYear()} Cleanly. All rights reserved.</p>
+            </div>
         </footer>
     );
 }
