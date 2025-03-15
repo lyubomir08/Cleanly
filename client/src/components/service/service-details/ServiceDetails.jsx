@@ -8,6 +8,7 @@ import { UserContext } from "../../../contexts/UserContext";
 import LoadingSpinner from "../../loading-spinner/LoadingSpinner";
 import LikeDislikeButtons from "./service-likedislike/LikeDislikeButtons";
 import ServiceActions from "./service-actions/ServiceActions";
+import DeleteServiceModal from "./service-actions/service-delete-modal/ServiceDeleteModal";
 
 export default function ServiceDetails() {
     const { id } = useParams();
@@ -15,6 +16,7 @@ export default function ServiceDetails() {
     const { user } = useContext(UserContext);
     const [service, setService] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchService = async () => {
@@ -62,13 +64,13 @@ export default function ServiceDetails() {
                     <p className="text-2xl font-semibold text-gray-800 mt-4">${service.price}</p>
                 </div>
 
-                {user && (
-                    <div className="flex justify-center gap-4 mt-6">
-                        <LikeDislikeButtons service={service} setService={setService} />
-                    </div>
-                )}
+                <div className="flex justify-center gap-4 mt-6">
+                    <LikeDislikeButtons service={service} setService={setService}  />
+                </div>
 
-                <ServiceActions serviceId={id} user={user} handleDelete={handleDelete} />
+                <ServiceActions serviceId={id} user={user} openDeleteModal={() => setIsModalOpen(true)} />
+
+                <DeleteServiceModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleDelete}/>
             </div>
         </div>
     );

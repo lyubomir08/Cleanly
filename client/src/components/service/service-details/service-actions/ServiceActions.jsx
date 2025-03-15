@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 
-export default function ServiceActions({ serviceId, user, handleDelete }) {
+export default function ServiceActions({ serviceId, user, openDeleteModal  }) {
     const navigate = useNavigate();
 
     return (
@@ -23,7 +23,7 @@ export default function ServiceActions({ serviceId, user, handleDelete }) {
                         ✏️ Edit
                     </button>
                     <button
-                        onClick={handleDelete}
+                        onClick={openDeleteModal}
                         className="w-50 bg-red-500 text-white py-3 rounded-lg font-medium transition hover:bg-red-400"
                     >
                         🗑️ Delete

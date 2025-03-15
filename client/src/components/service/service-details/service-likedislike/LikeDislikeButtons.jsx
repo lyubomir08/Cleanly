@@ -6,8 +6,8 @@ import { UserContext } from "../../../../contexts/UserContext";
 
 export default function LikeDislikeButtons({ service, setService }) {
     const { user } = useContext(UserContext);
-    const [userLiked, setUserLiked] = useState(service.likes.includes(user._id));
-    const [userDisliked, setUserDisliked] = useState(service.dislikes.includes(user._id));
+    const [userLiked, setUserLiked] = useState(user ? service.likes.includes(user?._id) : false);
+    const [userDisliked, setUserDisliked] = useState(user ? service.dislikes.includes(user?._id) : false);
 
     const handleLike = async () => {
         try {
