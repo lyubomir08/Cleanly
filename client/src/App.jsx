@@ -14,6 +14,7 @@ import AdminRoute from "./routes/AdminRoute.jsx";
 
 import "./App.css";
 import ServiceCatalog from "./components/service/service-catalog/ServiceCatalog.jsx";
+import ServiceDetails from "./components/service/service-details/ServiceDetails.jsx";
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                             <Route path="/services/add" element={<ServiceCreate />} />
                         </Route>
                         <Route path="/services" element={<ServiceCatalog />} />
+                        <Route path="/services/:id/details" element={<ServiceDetails />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                     </Routes>

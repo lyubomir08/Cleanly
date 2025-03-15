@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
 
 import { getAllServices, filterServices } from "../../../services/serviceService";
 
@@ -15,7 +14,6 @@ export default function ServiceCatalog() {
         sortBy: "newest",
     });
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
 
     useEffect(() => {
         loadServices();
