@@ -14,6 +14,7 @@ import ServiceEdit from "./components/service/service-edit/ServiceEdit.jsx";
 import Profile from "./components/profile/Profile.jsx";
 import BookingCreate from "./components/booking/booking-create/BookingCreate.jsx";
 import About from "./components/about/About.jsx";
+import ArticlesCatalog from "./components/blog/articles-catalog/ArticlesCatalog.jsx";
 
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
@@ -33,6 +34,7 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/about" element={<About />}/>
+                        <Route path="/blog" element={<ArticlesCatalog />} />
 
                         <Route element={<AdminRoute />}>
                             <Route path="/services/add" element={<ServiceCreate />} />
