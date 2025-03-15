@@ -1,9 +1,16 @@
 import { useContext } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+
 import { UserContext } from "../../contexts/UserContext";
 
 export default function Header() {
     const { user, logout } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const logoutClickHandler = async () => {
+        logout();
+        navigate("/");
+    };
 
     return (
         <header className="bg-gray-900 text-white py-4 shadow-md">
@@ -21,7 +28,7 @@ export default function Header() {
                                     <li><Link to="/services/add" className="hover:text-gray-300 transition">Add</Link></li>
                                 )}
                                 <li><Link to="/profile" className="hover:text-gray-300 transition">Profile</Link></li>
-                                <li className="hover:text-gray-300 transition cursor-pointer" onClick={logout}>
+                                <li className="hover:text-gray-300 transition cursor-pointer" onClick={logoutClickHandler}>
                                     Logout
                                 </li>
                             </>
