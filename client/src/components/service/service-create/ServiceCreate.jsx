@@ -7,6 +7,7 @@ export default function ServiceCreate() {
         name: "",
         description: "",
         price: "",
+        imageUrl: "",
     });
     const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ export default function ServiceCreate() {
         try {
             await createService(formData);
             
-            navigate("/");
+            navigate("/services");
         } catch (error) {
             console.error("Error creating service:", error);
         }
@@ -58,6 +59,17 @@ export default function ServiceCreate() {
                             type="number"
                             name="price"
                             value={formData.price}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600"
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700">Image URL</label>
+                        <input
+                            type="text"
+                            name="imageUrl"
+                            value={formData.imageUrl}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600"
                             required
