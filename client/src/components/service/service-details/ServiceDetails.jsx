@@ -10,12 +10,19 @@ export default function ServiceDetails() {
     const { user } = useContext(UserContext);
     const [service, setService] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [userLiked, setUserLiked] = useState(false);
+    const [userDisliked, setUserDisliked] = useState(false);
 
     useEffect(() => {
         const fetchService = async () => {
             try {
                 const data = await getServiceById(id);
                 setService(data);
+
+                if (user) {
+                    setUserLiked(data.likes.includes(user._id));
+                    setUserDisliked(data.dislikes.includes(user._id));
+                }
             } catch (error) {
                 console.error("Error fetching service details:", error);
             } finally {
@@ -23,7 +30,7 @@ export default function ServiceDetails() {
             }
         };
         fetchService();
-    }, [id]);
+    }, [id, user]);
 
     const handleDelete = async () => {
         if (window.confirm("Are you sure you want to delete this service?")) {
@@ -39,8 +46,10 @@ export default function ServiceDetails() {
     const handleLike = async () => {
         try {
             const updatedService = await likeService(id);
-
             setService(updatedService);
+
+            setUserLiked(!userLiked);
+            setUserDisliked(false);
         } catch (error) {
             console.error("Error liking service:", error);
         }
@@ -49,8 +58,10 @@ export default function ServiceDetails() {
     const handleDislike = async () => {
         try {
             const updatedService = await dislikeService(id);
-
             setService(updatedService);
+
+            setUserDisliked(!userDisliked);
+            setUserLiked(false);
         } catch (error) {
             console.error("Error disliking service:", error);
         }
@@ -80,13 +91,22 @@ export default function ServiceDetails() {
                     <div className="flex justify-center gap-4 mt-6">
                         <button
                             onClick={handleLike}
-                            className="w-36 flex items-center justify-center gap-2 text-gray-700 bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200 transition"
+                            className={`w-36 flex items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-sm transition ${
+                                userLiked
+                                    ? "bg-green-500 text-white hover:bg-green-600"
+                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
                         >
                             👍 Like <span className="font-semibold">{service.likes.length}</span>
                         </button>
+
                         <button
                             onClick={handleDislike}
-                            className="w-36 flex items-center justify-center gap-2 text-gray-700 bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200 transition"
+                            className={`w-36 flex items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-sm transition ${
+                                userDisliked
+                                    ? "bg-red-500 text-white hover:bg-red-600"
+                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
                         >
                             👎 Dislike <span className="font-semibold">{service.dislikes.length}</span>
                         </button>
