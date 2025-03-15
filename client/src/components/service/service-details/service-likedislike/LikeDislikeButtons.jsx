@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 
 import { likeService, dislikeService } from "../../../../services/serviceService";
+
 import { UserContext } from "../../../../contexts/UserContext";
 
 export default function LikeDislikeButtons({ service, setService }) {
@@ -23,7 +24,7 @@ export default function LikeDislikeButtons({ service, setService }) {
     const handleDislike = async () => {
         try {
             const updatedService = await dislikeService(service._id);
-            
+
             setService(updatedService);
             setUserDisliked(!userDisliked);
             setUserLiked(false);
@@ -34,27 +35,40 @@ export default function LikeDislikeButtons({ service, setService }) {
 
     return (
         <div className="flex justify-center gap-4 mt-6">
-            <button
-                onClick={handleLike}
-                className={`w-36 flex items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-sm transition ${
-                    userLiked
-                        ? "bg-green-500 text-white hover:bg-green-600"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-            >
-                👍 Like <span className="font-semibold">{service.likes.length}</span>
-            </button>
+            {user ? (
+                <>
+                    <button
+                        onClick={handleLike}
+                        className={`w-36 flex items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-sm transition ${
+                            userLiked
+                                ? "bg-green-500 text-white hover:bg-green-600"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
+                    >
+                        👍 Like <span className="font-semibold">{service.likes.length}</span>
+                    </button>
 
-            <button
-                onClick={handleDislike}
-                className={`w-36 flex items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-sm transition ${
-                    userDisliked
-                        ? "bg-red-500 text-white hover:bg-red-600"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-            >
-                👎 Dislike <span className="font-semibold">{service.dislikes.length}</span>
-            </button>
+                    <button
+                        onClick={handleDislike}
+                        className={`w-36 flex items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-sm transition ${
+                            userDisliked
+                                ? "bg-red-500 text-white hover:bg-red-600"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
+                    >
+                        👎 Dislike <span className="font-semibold">{service.dislikes.length}</span>
+                    </button>
+                </>
+            ) : (
+                <div className="flex justify-center gap-4">
+                    <div className="w-36 flex items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-sm bg-gray-100 text-gray-700">
+                        👍 {service.likes.length}
+                    </div>
+                    <div className="w-36 flex items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-sm bg-gray-100 text-gray-700">
+                        👎 {service.dislikes.length}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
