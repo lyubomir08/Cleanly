@@ -11,6 +11,7 @@ import ServiceCreate from "./components/service/service-create/ServiceCreate.jsx
 import ServiceCatalog from "./components/service/service-catalog/ServiceCatalog.jsx";
 import ServiceDetails from "./components/service/service-details/ServiceDetails.jsx";
 import ServiceEdit from "./components/service/service-edit/ServiceEdit.jsx";
+import Profile from "./components/profile/Profile.jsx";
 
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
@@ -38,7 +39,7 @@ function App() {
 
                         <Route element={<PrivateRoute />}>
                             <Route path="/services/:id/book" element={<BookingCreate />} />
-                            {/* <Route path="/profile" element={<Profile />} /> */}
+                            <Route path="/profile" element={<Profile />} />
                         </Route>
                     </Routes>
                 </main>
