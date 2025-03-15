@@ -20,12 +20,8 @@ export default function ServiceDetails() {
         const fetchService = async () => {
             try {
                 const data = await getServiceById(id);
-                setService(data);
 
-                if (user) {
-                    setUserLiked(data.likes.includes(user._id));
-                    setUserDisliked(data.dislikes.includes(user._id));
-                }
+                setService(data);
             } catch (error) {
                 console.error("Error fetching service details:", error);
             } finally {
@@ -33,7 +29,7 @@ export default function ServiceDetails() {
             }
         };
         fetchService();
-    }, [id, user]);
+    }, [id]);
 
     const handleDelete = async () => {
         if (window.confirm("Are you sure you want to delete this service?")) {
