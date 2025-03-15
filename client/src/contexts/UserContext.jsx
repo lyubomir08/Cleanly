@@ -1,16 +1,17 @@
 import { createContext, useState, useEffect } from "react";
-import { getUserData, clearUserData } from "../utils/storage.js";
+import { getUserData, clearUserData, setUserData } from "../utils/storage.js";
 import { login as apiLogin, register as apiRegister, logout as apiLogout } from "../services/authService.js";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() => getUserData());
 
     useEffect(() => {
-        const storedUser = getUserData();
-        if (storedUser) {
-            setUser(storedUser);
+        if (user) {
+            setUserData(user);
+        } else {
+            clearUserData();
         }
     }, []);
 
