@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DeleteServiceModal({ isOpen, onClose, onConfirm }) {
+export default function ServiceDeleteModal({ isOpen, onClose, onConfirm }) {
     if (!isOpen) return null;
 
     return (

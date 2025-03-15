@@ -8,7 +8,7 @@ import { UserContext } from "../../../contexts/UserContext";
 import LoadingSpinner from "../../loading-spinner/LoadingSpinner";
 import LikeDislikeButtons from "./service-likedislike/LikeDislikeButtons";
 import ServiceActions from "./service-actions/ServiceActions";
-import DeleteServiceModal from "./service-actions/service-delete-modal/ServiceDeleteModal";
+import ServiceDeleteModal from "./service-actions/service-delete-modal/ServiceDeleteModal";
 
 export default function ServiceDetails() {
     const { id } = useParams();
@@ -70,7 +70,7 @@ export default function ServiceDetails() {
 
                 <ServiceActions serviceId={id} user={user} openDeleteModal={() => setIsModalOpen(true)} />
 
-                <DeleteServiceModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleDelete}/>
+                <ServiceDeleteModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleDelete}/>
             </div>
         </div>
     );
