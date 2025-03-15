@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import userController from "./controllers/userController.js";
 import serviceController from "./controllers/serviceController.js";
 import bookingController from "./controllers/bookingController.js";
+import articleController from "./controllers/articleController.js";
 
 import authMiddleware from "./middlewares/authMiddleware.js";
 
@@ -47,6 +48,12 @@ app.get("/api/admin/bookings", authMiddleware, bookingController.getPendingBooki
 app.put("/api/bookings/:id/status", authMiddleware, bookingController.updateBookingStatus);
 app.delete("/api/bookings/:id", authMiddleware, bookingController.deleteUserBooking);
 app.delete("/api/admin/bookings/:id", authMiddleware, bookingController.deleteBooking);
+
+app.post("/api/articles", authMiddleware, articleController.createArticle);
+app.get("/api/articles", articleController.getAllArticles);
+app.get("/api/articles/:id", articleController.getArticleById);
+app.put("/api/articles/:id", authMiddleware, articleController.updateArticle);
+app.delete("/api/articles/:id", authMiddleware, articleController.deleteArticle);
 
 const connectDB = async () => {
     try {
