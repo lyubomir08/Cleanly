@@ -29,7 +29,7 @@ export default function Header() {
                         <li><Link to="/" className="hover:text-gray-300 transition">Home</Link></li>
                         <li><Link to="/services" className="hover:text-gray-300 transition">Catalog</Link></li>
                         <li><Link to="/about" className="hover:text-gray-300 transition">About</Link></li>
-                        <li><Link to="/blog" className="hover:text-gray-300 transition">Blog</Link></li>
+                        <li><Link to="/articles" className="hover:text-gray-300 transition">Blog</Link></li>
 
                         {user ? (
                             <>
@@ -60,7 +60,7 @@ export default function Header() {
                         <li><Link to="/" className="hover:text-gray-300 transition" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
                         <li><Link to="/services" className="hover:text-gray-300 transition" onClick={() => setIsMenuOpen(false)}>Catalog</Link></li>
                         <li><Link to="/about" className="hover:text-gray-300 transition" onClick={() => setIsMenuOpen(false)}>About</Link></li>
-                        <li><Link to="/blog" className="hover:text-gray-300 transition" onClick={() => setIsMenuOpen(false)}>Blog</Link></li>
+                        <li><Link to="/articles" className="hover:text-gray-300 transition" onClick={() => setIsMenuOpen(false)}>Blog</Link></li>
 
                         {user ? (
                             <>

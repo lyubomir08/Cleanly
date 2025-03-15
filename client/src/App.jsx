@@ -20,6 +20,7 @@ import PrivateRoute from "./routes/PrivateRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 
 import "./App.css";
+import ArticlesEdit from "./components/blog/articles-edit/ArticlesEdit.jsx";
 
 function App() {
     return (
@@ -34,7 +35,7 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/about" element={<About />}/>
-                        <Route path="/blog" element={<ArticlesCatalog />} />
+                        <Route path="/articles" element={<ArticlesCatalog />} />
 
                         <Route element={<AdminRoute />}>
                             <Route path="/services/add" element={<ServiceCreate />} />
@@ -43,6 +44,7 @@ function App() {
 
                         <Route element={<PrivateRoute />}>
                             <Route path="/services/:id/book" element={<BookingCreate />} />
+                            <Route path="/articles/:id/edit" element={<ArticlesEdit />} />
                             <Route path="/profile" element={<Profile />} />
                         </Route>
                     </Routes>
