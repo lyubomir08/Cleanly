@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../contexts/UserContext";
+
 import { getAllArticles } from "../../../services/articleService";
+
 import LoadingSpinner from "../../loading-spinner/LoadingSpinner";
 import ArticleItem from "./articles-item/ArticleItem";
 import ArticlesCreateModal from "../articles-create-modal/ArticlesCreateModal";
-import { UserContext } from "../../../contexts/UserContext";
 
 export default function ArticlesCatalog() {
     const { user } = useContext(UserContext);
