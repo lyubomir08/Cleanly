@@ -1,7 +1,7 @@
 import Service from "../models/Service.js";
 
-const createService = async ({ name, description, price }) => {
-    const newService = await Service.create({ name, description, price });
+const createService = async ({ name, description, price, imageUrl }) => {
+    const newService = await Service.create({ name, description, price, imageUrl });
     return newService;
 };
 

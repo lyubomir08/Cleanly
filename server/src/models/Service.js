@@ -16,6 +16,10 @@ const serviceSchema = new mongoose.Schema({
         required: true,
         min: 0,
     },
+    imageUrl: {
+        type: String,
+        required: true,
+    },
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
