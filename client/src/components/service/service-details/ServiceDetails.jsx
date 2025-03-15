@@ -1,7 +1,10 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
+
 import { getServiceById, deleteService, likeService, dislikeService } from "../../../services/serviceService";
+
 import { UserContext } from "../../../contexts/UserContext";
+
 import LoadingSpinner from "../../loading-spinner/LoadingSpinner";
 
 export default function ServiceDetails() {

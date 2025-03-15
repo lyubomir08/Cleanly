@@ -15,6 +15,7 @@ import AdminRoute from "./routes/AdminRoute.jsx";
 import "./App.css";
 import ServiceCatalog from "./components/service/service-catalog/ServiceCatalog.jsx";
 import ServiceDetails from "./components/service/service-details/ServiceDetails.jsx";
+import ServiceEdit from "./components/service/service-edit/ServiceEdit.jsx";
 
 function App() {
     return (
@@ -26,6 +27,9 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route element={<AdminRoute />}>
                             <Route path="/services/add" element={<ServiceCreate />} />
+                        </Route>
+                        <Route element={<AdminRoute />}>
+                            <Route path="/services/:id/edit" element={<ServiceEdit />}/>
                         </Route>
                         <Route path="/services" element={<ServiceCatalog />} />
                         <Route path="/services/:id/details" element={<ServiceDetails />} />
