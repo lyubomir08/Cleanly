@@ -1,4 +1,4 @@
-import Article from "../models/Article";
+import Article from "../models/Article.js";
 
 const createArticle = async (title, content, author) => {
     return await Article.create({ title, content, author });

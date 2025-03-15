@@ -1,4 +1,4 @@
-import articleService from "../services/articleService";
+import articleService from "../services/articleService.js";
 
 const createArticle = async (req, res) => {
     try {
