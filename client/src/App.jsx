@@ -8,14 +8,15 @@ import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import ServiceCreate from "./components/service/service-create/ServiceCreate.jsx";
+import ServiceCatalog from "./components/service/service-catalog/ServiceCatalog.jsx";
+import ServiceDetails from "./components/service/service-details/ServiceDetails.jsx";
+import ServiceEdit from "./components/service/service-edit/ServiceEdit.jsx";
 
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 
 import "./App.css";
-import ServiceCatalog from "./components/service/service-catalog/ServiceCatalog.jsx";
-import ServiceDetails from "./components/service/service-details/ServiceDetails.jsx";
-import ServiceEdit from "./components/service/service-edit/ServiceEdit.jsx";
+import BookingCreate from "./components/booking/booking-create/BookingCreate.jsx";
 
 function App() {
     return (
@@ -25,16 +26,20 @@ function App() {
                 <main className="flex-grow">
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route element={<AdminRoute />}>
-                            <Route path="/services/add" element={<ServiceCreate />} />
-                        </Route>
-                        <Route element={<AdminRoute />}>
-                            <Route path="/services/:id/edit" element={<ServiceEdit />}/>
-                        </Route>
                         <Route path="/services" element={<ServiceCatalog />} />
                         <Route path="/services/:id/details" element={<ServiceDetails />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
+
+                        <Route element={<AdminRoute />}>
+                            <Route path="/services/add" element={<ServiceCreate />} />
+                            <Route path="/services/:id/edit" element={<ServiceEdit />} />
+                        </Route>
+
+                        <Route element={<PrivateRoute />}>
+                            <Route path="/services/:id/book" element={<BookingCreate />} />
+                            {/* <Route path="/profile" element={<Profile />} /> */}
+                        </Route>
                     </Routes>
                 </main>
                 <Footer />
