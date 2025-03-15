@@ -4,10 +4,7 @@ import { useNavigate } from "react-router";
 
 export default function Login() {
     const { login } = useContext(UserContext);
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    });
+    const [formData, setFormData] = useState({ email: "", password: "" });
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -18,7 +15,6 @@ export default function Login() {
         e.preventDefault();
         try {
             await login(formData.email, formData.password);
-            
             navigate("/");
         } catch (error) {
             console.error("Login failed", error);
@@ -26,7 +22,7 @@ export default function Login() {
     };
 
     return (
-        <div className="flex items-center justify-center py-12 w-full">
+        <div className="flex items-center justify-center bg-gray-100 py-50 w-full h-auto">
             <div className="bg-white p-8 rounded-lg shadow-xl shadow-gray-400/50 w-96">
                 <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Login</h2>
                 <form onSubmit={handleSubmit}>

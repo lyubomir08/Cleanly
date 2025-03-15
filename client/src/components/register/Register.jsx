@@ -14,12 +14,11 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if(formData.password !== formData.rePassword) {
+            if (formData.password !== formData.rePassword) {
                 return;
             }
 
             await register(formData.username, formData.email, formData.password, formData.rePassword);
-
             navigate("/");
         } catch (error) {
             console.error("Registration failed", error);
@@ -27,7 +26,7 @@ export default function Register() {
     };
 
     return (
-        <div className="flex items-center justify-center py-12 w-full">
+        <div className="flex items-center justify-center bg-gray-100 py-30 w-full h-auto">
             <div className="bg-white p-8 rounded-lg shadow-xl shadow-gray-400/50 w-96">
                 <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Sign Up</h2>
                 <form onSubmit={handleSubmit}>

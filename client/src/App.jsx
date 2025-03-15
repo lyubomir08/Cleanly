@@ -13,18 +13,20 @@ import PrivateRoute from "./routes/PrivateRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 
 import "./App.css";
+import ServiceCatalog from "./components/service/service-catalog/ServiceCatalog.jsx";
 
 function App() {
     return (
         <UserProvider>
             <div className="flex flex-col min-h-screen bg-gray-100">
                 <Header />
-                <main className="flex-grow flex items-center justify-center">
+                <main className="flex-grow">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route element={<AdminRoute />}>
                             <Route path="/services/add" element={<ServiceCreate />} />
                         </Route>
+                        <Route path="/services" element={<ServiceCatalog />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                     </Routes>
