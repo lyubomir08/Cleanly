@@ -1,43 +1,59 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+
+import { getAllServices } from "../../services/serviceService";
+
 export default function Home() {
+    const [services, setServices] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        async function fetchServices() {
+            try {
+                const data = await getAllServices();
+                setServices(data.slice(0, 3));
+            } catch (error) {
+                console.error("Error fetching services:", error);
+            }
+        }
+        fetchServices();
+    }, []);
+
     return (
-        <div className="h-screen flex flex-col items-center justify-center bg-gray-100 text-center px-6 py-6">
-            <section className="mb-3 mt-2">
-                <h1 className="text-4xl font-bold text-gray-800 mb-2">A Cleaner Home, A Healthier Life</h1>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                    At <span className="font-semibold">Cleanify</span>, we believe in providing top-notch cleaning services
-                    that give you more time to focus on what truly matters. Whether it's your home or office, we bring
-                    professional-grade cleanliness to your space.
+        <div className="max-w-7xl mx-auto px-6 py-8">
+            <section className="text-center mb-8">
+                <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
+                    Welcome to Cleanify!
+                </h1>
+                <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
+                    We provide high-quality cleaning services to make your home and office spotless.
+                    Let us take care of the mess while you enjoy a cleaner, healthier environment.
                 </p>
-                <button className="mt-3 bg-gray-800 text-white px-5 py-2 rounded-md hover:bg-gray-700 transition">
-                    Book a Cleaning Now
-                </button>
-            </section>
-
-            <section className="max-w-6xl w-full px-6 py-4">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">Our Services</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 place-items-center">
-                    <div className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center text-center w-72">
-                        <h3 className="text-lg font-semibold text-gray-800">Home Cleaning</h3>
-                        <p className="text-gray-600 mt-1">
-                            Enjoy a sparkling clean home with our professional deep cleaning services.
-                        </p>
-                    </div>
-
-                    <div className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center text-center w-72">
-                        <h3 className="text-lg font-semibold text-gray-800">Office Cleaning</h3>
-                        <p className="text-gray-600 mt-1">
-                            Keep your workspace neat and professional with our expert office cleaning solutions.
-                        </p>
-                    </div>
-
-                    <div className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center text-center w-72">
-                        <h3 className="text-lg font-semibold text-gray-800">Carpet & Upholstery</h3>
-                        <p className="text-gray-600 mt-1">
-                            Extend the life of your carpets and furniture with our specialized cleaning services.
-                        </p>
-                    </div>
+                <div className="mt-6 flex justify-center">
+                    <button
+                        className="bg-green-600 text-white px-6 py-3 rounded-md shadow-md text-lg font-medium hover:bg-green-500 transition-transform transform hover:scale-105"
+                        onClick={() => navigate("/services")}
+                    >
+                        Explore All Services
+                    </button>
                 </div>
             </section>
+
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Some of our Services</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center">
+                {services.map((service) => (
+                    <div key={service._id} className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center text-center w-80 transition-transform transform hover:scale-105">
+                        <img src={service.imageUrl} alt={service.name} className="w-full h-48 object-cover rounded-md mb-4" />
+                        <h3 className="text-xl font-semibold text-gray-900">{service.name}</h3>
+                        <button
+                            className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500 transition-transform transform hover:scale-105"
+                            onClick={() => navigate(`services/${service._id}/details`)}
+                        >
+                            View Details
+                        </button>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

@@ -12,12 +12,13 @@ import ServiceCatalog from "./components/service/service-catalog/ServiceCatalog.
 import ServiceDetails from "./components/service/service-details/ServiceDetails.jsx";
 import ServiceEdit from "./components/service/service-edit/ServiceEdit.jsx";
 import Profile from "./components/profile/Profile.jsx";
+import BookingCreate from "./components/booking/booking-create/BookingCreate.jsx";
+import About from "./components/about/About.jsx";
 
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 
 import "./App.css";
-import BookingCreate from "./components/booking/booking-create/BookingCreate.jsx";
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                         <Route path="/services/:id/details" element={<ServiceDetails />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/about" element={<About />}/>
 
                         <Route element={<AdminRoute />}>
                             <Route path="/services/add" element={<ServiceCreate />} />
