@@ -63,14 +63,14 @@ const filterServices = async (filters) => {
     if (filters.name) {
         query.name = { $regex: filters.name, $options: "i" };
     }
-    if (filters.minPrice !== undefined) {
-        query.price = { $gte: filters.minPrice };
+    if (filters.minPrice && !isNaN(filters.minPrice)) {
+        query.price = { $gte: Number(filters.minPrice) };
     }
-    if (filters.maxPrice !== undefined) {
-        query.price = { $lte: filters.maxPrice };
+    if (filters.maxPrice && !isNaN(filters.maxPrice)) {
+        query.price = { ...query.price, $lte: Number(filters.maxPrice) };
     }
 
-    const sortOption = {};
+    let sortOption = {};
     if (filters.sortBy === "newest") {
         sortOption = { createdAt: -1 };
     } else if (filters.sortBy === "oldest") {

@@ -34,13 +34,13 @@ app.get("/api/users/profile", authMiddleware, userController.getProfile);
 app.get("/api/admin/users", authMiddleware, userController.getAllUsers);
 
 app.get("/api/services", serviceController.getAllServices);
+app.get("/api/services/filter", serviceController.filterServices);
 app.get("/api/services/:id", serviceController.getServiceById);
 app.post("/api/services", authMiddleware, serviceController.createService);
 app.put("/api/services/:id", authMiddleware, serviceController.updateService);
 app.delete("/api/services/:id", authMiddleware, serviceController.deleteService);
 app.post("/api/services/:id/like", authMiddleware, serviceController.likeService);
 app.post("/api/services/:id/dislike", authMiddleware, serviceController.dislikeService);
-app.get("/api/services/filter", serviceController.filterServices);
 
 app.post("/api/bookings", authMiddleware, bookingController.createBooking);
 app.get("/api/admin/bookings", authMiddleware, bookingController.getPendingBookings);
