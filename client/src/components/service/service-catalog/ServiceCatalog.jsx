@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { getAllServices, filterServices } from "../../../services/serviceService";
 
 import LoadingSpinner from "../../loading-spinner/LoadingSpinner";
+import ServiceItem from "./service-item/ServiceItem";
 
 export default function ServiceCatalog() {
     const [services, setServices] = useState([]);
@@ -95,17 +96,7 @@ export default function ServiceCatalog() {
             ) : services.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {services.map(service => (
-                        <div key={service._id} className="bg-white shadow-lg rounded-lg p-4 text-center">
-                            <img src={service.imageUrl} alt={service.name} className="w-full h-40 object-cover rounded-md mb-3" />
-                            <h3 className="text-lg font-semibold text-gray-800">{service.name}</h3>
-                            <p className="text-gray-600 mt-1">${service.price}</p>
-                            <button
-                                onClick={() => navigate(`/services/${service._id}/details`)}
-                                className="mt-3 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition"
-                            >
-                                Details
-                            </button>
-                        </div>
+                        <ServiceItem key={service._id} service={service}/>
                     ))}
                 </div>
             ) : (
