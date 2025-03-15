@@ -1,11 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 
-import { getServiceById, deleteService, likeService, dislikeService } from "../../../services/serviceService";
+import { getServiceById, deleteService } from "../../../services/serviceService";
 
 import { UserContext } from "../../../contexts/UserContext";
 
 import LoadingSpinner from "../../loading-spinner/LoadingSpinner";
+import LikeDislikeButtons from "./service-likedislike/LikeDislikeButtons";
+import ServiceActions from "./service-actions/ServiceActions";
 
 export default function ServiceDetails() {
     const { id } = useParams();
@@ -13,8 +15,6 @@ export default function ServiceDetails() {
     const { user } = useContext(UserContext);
     const [service, setService] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [userLiked, setUserLiked] = useState(false);
-    const [userDisliked, setUserDisliked] = useState(false);
 
     useEffect(() => {
         const fetchService = async () => {
@@ -46,30 +46,6 @@ export default function ServiceDetails() {
         }
     };
 
-    const handleLike = async () => {
-        try {
-            const updatedService = await likeService(id);
-            setService(updatedService);
-
-            setUserLiked(!userLiked);
-            setUserDisliked(false);
-        } catch (error) {
-            console.error("Error liking service:", error);
-        }
-    };
-
-    const handleDislike = async () => {
-        try {
-            const updatedService = await dislikeService(id);
-            setService(updatedService);
-
-            setUserDisliked(!userDisliked);
-            setUserLiked(false);
-        } catch (error) {
-            console.error("Error disliking service:", error);
-        }
-    };
-
     if (loading) return <LoadingSpinner />;
     if (!service) return <p className="text-center text-gray-500 text-lg font-semibold">❌ Service not found.</p>;
 
@@ -92,57 +68,11 @@ export default function ServiceDetails() {
 
                 {user && (
                     <div className="flex justify-center gap-4 mt-6">
-                        <button
-                            onClick={handleLike}
-                            className={`w-36 flex items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-sm transition ${
-                                userLiked
-                                    ? "bg-green-500 text-white hover:bg-green-600"
-                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                            }`}
-                        >
-                            👍 Like <span className="font-semibold">{service.likes.length}</span>
-                        </button>
-
-                        <button
-                            onClick={handleDislike}
-                            className={`w-36 flex items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-sm transition ${
-                                userDisliked
-                                    ? "bg-red-500 text-white hover:bg-red-600"
-                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                            }`}
-                        >
-                            👎 Dislike <span className="font-semibold">{service.dislikes.length}</span>
-                        </button>
+                        <LikeDislikeButtons service={service} setService={setService} />
                     </div>
                 )}
 
-                <div className="flex flex-wrap justify-center gap-7 mt-8">
-                    {user && (
-                        <button
-                            onClick={() => navigate(`/services/${id}/book`)}
-                            className="w-50 bg-blue-600 text-white py-3 rounded-lg font-semibold transition hover:bg-blue-700"
-                        >
-                            📅 Book This Service
-                        </button>
-                    )}
-
-                    {user?.role === "admin" && (
-                        <>
-                            <button
-                                onClick={() => navigate(`/services/${id}/edit`)}
-                                className="w-50 bg-gray-800 text-white py-3 rounded-lg font-medium transition hover:bg-gray-600"
-                            >
-                                ✏️ Edit
-                            </button>
-                            <button
-                                onClick={handleDelete}
-                                className="w-50 bg-red-500 text-white py-3 rounded-lg font-medium transition hover:bg-red-400"
-                            >
-                                🗑️ Delete
-                            </button>
-                        </>
-                    )}
-                </div>
+                <ServiceActions serviceId={id} user={user} handleDelete={handleDelete} />
             </div>
         </div>
     );
