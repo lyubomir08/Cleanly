@@ -15,12 +15,12 @@ import Profile from "./components/profile/Profile.jsx";
 import BookingCreate from "./components/booking/booking-create/BookingCreate.jsx";
 import About from "./components/about/About.jsx";
 import ArticlesCatalog from "./components/blog/articles-catalog/ArticlesCatalog.jsx";
+import ArticlesEdit from "./components/blog/articles-edit/ArticlesEdit.jsx";
 
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 
 import "./App.css";
-import ArticlesEdit from "./components/blog/articles-edit/ArticlesEdit.jsx";
 
 function App() {
     return (

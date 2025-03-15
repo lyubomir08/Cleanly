@@ -41,7 +41,7 @@ export default function Header() {
                                     className="hover:text-gray-300 transition cursor-pointer"
                                     onClick={logoutClickHandler}
                                 >
-                                    Logout
+                                    Sign out
                                 </li>
                             </>
                         ) : (
@@ -75,7 +75,7 @@ export default function Header() {
                                         setIsMenuOpen(false);
                                     }}
                                 >
-                                    Logout
+                                    Sign out
                                 </li>
                             </>
                         ) : (
