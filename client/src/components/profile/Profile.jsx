@@ -174,6 +174,14 @@ export default function Profile() {
                                             <td className="border border-gray-300 px-4 py-3">{user.username}</td>
                                             <td className="border border-gray-300 px-4 py-3">{user.email}</td>
                                             <td className="border border-gray-300 px-4 py-3">{user.role}</td>
+                                            <td className="border border-gray-300 px-4 py-3">
+                                                <button
+                                                    onClick={() => handleChangeRole(user._id, user.role)}
+                                                    className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-400 transition duration-300"
+                                                >
+                                                    🔄 Change Role
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
