@@ -33,7 +33,7 @@ app.post("/api/auth/login", userController.login);
 app.post("/api/auth/logout", authMiddleware, userController.logout);
 app.get("/api/users/profile", authMiddleware, userController.getProfile);
 app.get("/api/admin/users", authMiddleware, userController.getAllUsers);
-app.patch("/api/admin/users/role", authMiddleware, userController.changeRole);
+app.put("/api/admin/users/role", authMiddleware, userController.changeRole);
 
 app.get("/api/services", serviceController.getAllServices);
 app.get("/api/services/filter", serviceController.filterServices);
