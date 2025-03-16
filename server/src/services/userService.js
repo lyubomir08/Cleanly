@@ -98,9 +98,35 @@ const getAllUsers = async () => {
     return await User.find().select("-password -__v");
 };
 
+const changeUserRole = async (userId, newRole) => {
+    const validRoles = ["user", "admin"];
+    if (!validRoles.includes(newRole)) {
+        throw new Error("Invalid role specified.");
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+        throw new Error("User not found.");
+    }
+
+    user.role = newRole;
+    await user.save();
+
+    return {
+        message: `User role updated to ${newRole}`,
+        user: {
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            role: user.role,
+        }
+    };
+};
+
 export default {
     registerUser,
     loginUser,
     getUserProfile,
     getAllUsers,
+    changeUserRole,
 };
