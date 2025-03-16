@@ -1,7 +1,7 @@
 export default function BookingsPending({ pendingBookings, handleUpdateBookingStatus }) {
     return (
         <>
-            <h3 className="text-2xl font-semibold mt-10 mb-4 text-gray-900">🛠️ Manage All Pending Bookings</h3>
+            <h3 className="text-2xl font-semibold mt-10 mb-4 text-gray-900"> Manage All Pending Bookings</h3>
             {pendingBookings.length === 0 ? (
                 <p className="text-gray-500 text-lg">No pending bookings.</p>
             ) : (
@@ -17,13 +17,13 @@ export default function BookingsPending({ pendingBookings, handleUpdateBookingSt
                                     onClick={() => handleUpdateBookingStatus(booking._id, "confirmed")}
                                     className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-400 transition duration-300 w-1/2"
                                 >
-                                    ✅ Approve
+                                    Approve
                                 </button>
                                 <button
                                     onClick={() => handleUpdateBookingStatus(booking._id, "cancelled")}
                                     className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-400 transition duration-300 w-1/2"
                                 >
-                                    ❌ Reject
+                                    Reject
                                 </button>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 export default function BookingsUser({ bookings, handleDeleteBooking }) {
     return (
         <>
-            <h3 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">📋 Your Bookings</h3>
+            <h3 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">Your Bookings</h3>
             {bookings.length === 0 ? (
                 <p className="text-gray-500 text-lg">No bookings found.</p>
             ) : (
