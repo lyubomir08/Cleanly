@@ -1,4 +1,4 @@
-import { get, post } from "./api.js";
+import { get, post, put } from "./api.js";
 import { setUserData, clearUserData } from "../utils/storage.js";
 
 const endpoints = {
@@ -7,6 +7,7 @@ const endpoints = {
     logout: "/auth/logout",
     profile: "/users/profile",
     allUsers: "/admin/users",
+    changeRole: "/admin/users/role",
 };
 
 export async function login(email, password) {
@@ -49,4 +50,8 @@ export async function getProfile() {
 
 export async function getAllUsers() {
     return await get(endpoints.allUsers);
+}
+
+export async function changeUserRole(userId, newRole) {
+    return await put(endpoints.changeRole, { userId, newRole });
 }
