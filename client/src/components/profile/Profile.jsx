@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 
-import { getProfile, getAllUsers } from "../../services/authService";
+import { getProfile, getAllUsers, changeUserRole } from "../../services/authService";
 import { getPendingBookings, updateBookingStatus, deleteUserBooking } from "../../services/bookingService";
 import { UserContext } from "../../contexts/UserContext";
 
@@ -35,6 +35,22 @@ export default function Profile() {
 
         fetchData();
     }, [user]);
+
+    const handleChangeRole = async (userId, currentRole) => {
+        const newRole = currentRole === "user" ? "admin" : "user";
+
+        if (!window.confirm(`Are you sure you want to change role to ${newRole}?`)) return;
+
+        try {
+            await changeUserRole(userId, newRole);
+            const updatedUsers = await getAllUsers();
+            setAllUsers(updatedUsers);
+            alert(`User role updated to ${newRole}`);
+        } catch (error) {
+            console.error("Error changing user role:", error);
+            alert("Failed to change user role.");
+        }
+    };
 
     const handleDeleteBooking = async (bookingId) => {
         if (!bookingId) return console.error("Error: Missing booking ID.");
@@ -75,7 +91,7 @@ export default function Profile() {
 
     return (
         <div className="p-6 max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">👤 Your Profile</h2>
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">Your Profile</h2>
             <p className="text-center text-gray-600 text-lg">{profileData?.email}</p>
 
             <h3 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">📋 Your Bookings</h3>
@@ -149,6 +165,7 @@ export default function Profile() {
                                         <th className="border border-gray-300 px-4 py-3">Username</th>
                                         <th className="border border-gray-300 px-4 py-3">Email</th>
                                         <th className="border border-gray-300 px-4 py-3">Role</th>
+                                        <th className="border border-gray-300 px-4 py-3">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
