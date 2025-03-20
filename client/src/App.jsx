@@ -17,9 +17,9 @@ import About from "./components/about/About.jsx";
 import ArticlesCatalog from "./components/blog/articles-catalog/ArticlesCatalog.jsx";
 import ArticlesEdit from "./components/blog/articles-edit/ArticlesEdit.jsx";
 
-import PrivateRoute from "./guards/PrivateRoute.jsx";
-import AdminRoute from "./guards/AdminRoute.jsx";
-import PublicRoute from "./guards/PublicRoute.jsx";
+import PrivateGuard from "./guards/PrivateGuard.jsx";
+import PublicGuard from "./guards/PublicGuard.jsx";
+import AdminGuard from "./guards/AdminGuard.jsx";
 
 import "./App.css";
 
@@ -36,17 +36,17 @@ function App() {
                         <Route path="/about" element={<About />} />
                         <Route path="/articles" element={<ArticlesCatalog />} />
 
-                        <Route element={<PublicRoute />}>
+                        <Route element={<PublicGuard />}>
                             <Route path="/login" element={<Login />} />
                             <Route path="/register" element={<Register />} />
                         </Route>
 
-                        <Route element={<AdminRoute />}>
+                        <Route element={<AdminGuard />}>
                             <Route path="/services/add" element={<ServiceCreate />} />
                             <Route path="/services/:id/edit" element={<ServiceEdit />} />
                         </Route>
 
-                        <Route element={<PrivateRoute />}>
+                        <Route element={<PrivateGuard />}>
                             <Route path="/services/:id/book" element={<BookingCreate />} />
                             <Route path="/articles/:id/edit" element={<ArticlesEdit />} />
                             <Route path="/profile" element={<Profile />} />
