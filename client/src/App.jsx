@@ -17,9 +17,9 @@ import About from "./components/about/About.jsx";
 import ArticlesCatalog from "./components/blog/articles-catalog/ArticlesCatalog.jsx";
 import ArticlesEdit from "./components/blog/articles-edit/ArticlesEdit.jsx";
 
-import PrivateRoute from "./routes/PrivateRoute.jsx";
-import AdminRoute from "./routes/AdminRoute.jsx";
-import PublicRoute from "./routes/PublicRoute.jsx";
+import PrivateRoute from "./guards/PrivateRoute.jsx";
+import AdminRoute from "./guards/AdminRoute.jsx";
+import PublicRoute from "./guards/PublicRoute.jsx";
 
 import "./App.css";
 
