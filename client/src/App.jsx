@@ -19,6 +19,7 @@ import ArticlesEdit from "./components/blog/articles-edit/ArticlesEdit.jsx";
 
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
+import PublicRoute from "./routes/PublicRoute.jsx";
 
 import "./App.css";
 
@@ -32,10 +33,13 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/services" element={<ServiceCatalog />} />
                         <Route path="/services/:id/details" element={<ServiceDetails />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/about" element={<About />}/>
+                        <Route path="/about" element={<About />} />
                         <Route path="/articles" element={<ArticlesCatalog />} />
+
+                        <Route element={<PublicRoute />}>
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
+                        </Route>
 
                         <Route element={<AdminRoute />}>
                             <Route path="/services/add" element={<ServiceCreate />} />
