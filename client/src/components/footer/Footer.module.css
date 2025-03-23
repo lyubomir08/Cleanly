@@ -1,0 +1,12 @@
+.footer {
+    background-color: #1f2937; /* gray-800 */
+    color: white;
+    padding: 1rem 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 1rem;
+}
