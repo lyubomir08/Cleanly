@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 
 import { getServiceById, updateService } from "../../../services/serviceService";
@@ -15,10 +15,10 @@ export default function ServiceEdit() {
         price: "",
         imageUrl: ""
     });
-
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [saving, setSaving] = useState(false);
+    const [formErrors, setFormErrors] = useState({});
+    const [submitError, setSubmitError] = useState(null);
 
     useEffect(() => {
         const fetchService = async () => {
@@ -32,7 +32,7 @@ export default function ServiceEdit() {
                     imageUrl: data.imageUrl
                 });
             } catch (error) {
-                setError("Error fetching service details");
+                setSubmitError(error.message || "Failed to fetch service details.");
             } finally {
                 setLoading(false);
             }
@@ -43,32 +43,60 @@ export default function ServiceEdit() {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+    };
+
+    const validate = () => {
+        const errors = {};
+
+        if (!formData.name || formData.name.trim().length < 3) {
+            errors.name = "Name must be at least 3 characters.";
+        }
+
+        if (!formData.description || formData.description.trim().length < 10) {
+            errors.description = "Description must be at least 10 characters.";
+        }
+
+        if (!formData.price || isNaN(Number(formData.price)) || Number(formData.price) <= 0) {
+            errors.price = "Price must be a number greater than 0.";
+        }
+
+        if (formData.imageUrl && !formData.imageUrl.startsWith("http")) {
+            errors.imageUrl = "Image URL must start with http/https.";
+        }
+
+        setFormErrors(errors);
+        return Object.keys(errors).length === 0;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSubmitError(null);
 
-        setSaving(true);
-        setError(null);
+        if (!validate()) return;
 
         try {
-            await updateService(id, formData);
+            setSaving(true);
 
+            await updateService(id, formData);
             navigate(`/services/${id}/details`);
         } catch (error) {
-            setError("Error updating service");
+            setSubmitError(error.message || "Failed to update service.");
         } finally {
             setSaving(false);
         }
     };
 
     if (loading) return <LoadingSpinner />;
-    if (error) return <p className="text-center text-red-500 text-lg font-semibold">❌ {error}</p>;
 
     return (
         <div className="flex items-center justify-center min-h-screen px-4">
             <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden p-6">
                 <h2 className="text-3xl font-semibold text-gray-900 text-center mb-6">✏️ Edit Service</h2>
+
+                {submitError && (
+                    <p className="text-red-500 text-center mb-4 font-medium">{submitError}</p>
+                )}
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
@@ -79,8 +107,10 @@ export default function ServiceEdit() {
                             value={formData.name}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                            required
                         />
+                        {formErrors.name && (
+                            <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>
+                        )}
                     </div>
 
                     <div>
@@ -90,8 +120,10 @@ export default function ServiceEdit() {
                             value={formData.description}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                            required
                         />
+                        {formErrors.description && (
+                            <p className="text-red-500 text-sm mt-1">{formErrors.description}</p>
+                        )}
                     </div>
 
                     <div>
@@ -102,8 +134,10 @@ export default function ServiceEdit() {
                             value={formData.price}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                            required
                         />
+                        {formErrors.price && (
+                            <p className="text-red-500 text-sm mt-1">{formErrors.price}</p>
+                        )}
                     </div>
 
                     <div>
@@ -115,6 +149,9 @@ export default function ServiceEdit() {
                             onChange={handleChange}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                         />
+                        {formErrors.imageUrl && (
+                            <p className="text-red-500 text-sm mt-1">{formErrors.imageUrl}</p>
+                        )}
                     </div>
 
                     {formData.imageUrl && (
@@ -139,7 +176,9 @@ export default function ServiceEdit() {
                         <button
                             type="submit"
                             disabled={saving}
-                            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition hover:bg-blue-700"
+                            className={`${
+                                saving ? "opacity-60 cursor-not-allowed" : ""
+                            } bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition hover:bg-blue-700`}
                         >
                             {saving ? "Saving..." : "💾 Save Changes"}
                         </button>

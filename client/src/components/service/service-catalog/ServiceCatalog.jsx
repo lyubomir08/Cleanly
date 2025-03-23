@@ -14,6 +14,7 @@ export default function ServiceCatalog() {
         sortBy: "newest",
     });
     const [loading, setLoading] = useState(true);
+    const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
         loadServices();
@@ -22,10 +23,9 @@ export default function ServiceCatalog() {
     const loadServices = async () => {
         try {
             const data = await getAllServices();
-
             setServices(data);
         } catch (error) {
-            console.error("Error fetching services:", error);
+            setErrorMsg(error.message || "Failed to load services. Please try again later.");
         } finally {
             setLoading(false);
         }
@@ -37,14 +37,16 @@ export default function ServiceCatalog() {
 
     const applyFilters = async (e) => {
         e.preventDefault();
+
         setLoading(true);
+        setErrorMsg(null);
 
         try {
             const filteredData = await filterServices(filters);
 
             setServices(filteredData);
         } catch (error) {
-            console.error("Error filtering services:", error);
+            setErrorMsg(error.message || "Failed to apply filters.");
         } finally {
             setLoading(false);
         }
@@ -55,30 +57,9 @@ export default function ServiceCatalog() {
             <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">Our Services</h1>
 
             <form onSubmit={applyFilters} className="mb-6 flex flex-wrap gap-4 items-center justify-center">
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Search by name..."
-                    value={filters.name}
-                    onChange={handleFilterChange}
-                    className="border px-4 py-2 rounded-md"
-                />
-                <input
-                    type="number"
-                    name="minPrice"
-                    placeholder="Min Price"
-                    value={filters.minPrice}
-                    onChange={handleFilterChange}
-                    className="border px-4 py-2 rounded-md"
-                />
-                <input
-                    type="number"
-                    name="maxPrice"
-                    placeholder="Max Price"
-                    value={filters.maxPrice}
-                    onChange={handleFilterChange}
-                    className="border px-4 py-2 rounded-md"
-                />
+                <input type="text" name="name" placeholder="Search by name..." value={filters.name} onChange={handleFilterChange} className="border px-4 py-2 rounded-md" />
+                <input type="number" name="minPrice" placeholder="Min Price" value={filters.minPrice} onChange={handleFilterChange} className="border px-4 py-2 rounded-md" />
+                <input type="number" name="maxPrice" placeholder="Max Price" value={filters.maxPrice} onChange={handleFilterChange} className="border px-4 py-2 rounded-md" />
                 <select name="sortBy" value={filters.sortBy} onChange={handleFilterChange} className="border px-4 py-2 rounded-md">
                     <option value="newest">Newest</option>
                     <option value="oldest">Oldest</option>
@@ -88,12 +69,14 @@ export default function ServiceCatalog() {
                 </button>
             </form>
 
+            {errorMsg && <p className="text-red-500 text-center mb-4">{errorMsg}</p>}
+
             {loading ? (
                 <LoadingSpinner />
             ) : services.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {services.map(service => (
-                        <ServiceItem key={service._id} service={service}/>
+                        <ServiceItem key={service._id} service={service} />
                     ))}
                 </div>
             ) : (

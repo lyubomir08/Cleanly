@@ -14,9 +14,12 @@ export default function ServiceDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
+
     const [service, setService] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [errorMsg, setErrorMsg] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         const fetchService = async () => {
@@ -25,31 +28,40 @@ export default function ServiceDetails() {
 
                 setService(data);
             } catch (error) {
-                console.error("Error fetching service details:", error);
+                setErrorMsg(error.message || "Failed to load service. Please try again later.");
             } finally {
                 setLoading(false);
             }
         };
+
         fetchService();
     }, [id]);
 
     const handleDelete = async () => {
-        if (window.confirm("Are you sure you want to delete this service?")) {
-            try {
-                await deleteService(id);
-                navigate("/services");
-            } catch (error) {
-                console.error("Error deleting service:", error);
-            }
+        setIsDeleting(true);
+        setErrorMsg(null);
+
+        try {
+            await deleteService(id);
+            navigate("/services");
+        } catch (error) {
+            setErrorMsg(error.message || "Failed to delete the service.");
+        } finally {
+            setIsDeleting(false);
+            setIsModalOpen(false);
         }
     };
 
     if (loading) return <LoadingSpinner />;
-    if (!service) return <p className="text-center text-gray-500 text-lg font-semibold">❌ Service not found.</p>;
+    if (!service) return <p className="text-center text-red-500 text-lg mt-10">{errorMsg || "Service not found."}</p>;
 
     return (
         <div className="flex items-center justify-center min-h-screen px-4">
             <div className="max-w-5xl w-full bg-white shadow-lg rounded-lg overflow-hidden p-6">
+                {errorMsg && (
+                    <p className="text-red-500 text-center mb-4 font-medium">{errorMsg}</p>
+                )}
+
                 <div className="relative">
                     <img
                         src={service.imageUrl}
@@ -65,12 +77,21 @@ export default function ServiceDetails() {
                 </div>
 
                 <div className="flex justify-center gap-4 mt-6">
-                    <LikeDislikeButtons service={service} setService={setService}  />
+                    <LikeDislikeButtons service={service} setService={setService} />
                 </div>
 
-                <ServiceActions serviceId={id} user={user} openDeleteModal={() => setIsModalOpen(true)} />
+                <ServiceActions
+                    serviceId={id}
+                    user={user}
+                    openDeleteModal={() => setIsModalOpen(true)}
+                />
 
-                <ServiceDeleteModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleDelete}/>
+                <ServiceDeleteModal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    onConfirm={handleDelete}
+                    isDeleting={isDeleting}
+                />
             </div>
         </div>
     );
