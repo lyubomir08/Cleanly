@@ -54,7 +54,6 @@ export default function ServiceCatalog() {
         <div className="max-w-6xl mx-auto p-6">
             <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">Our Services</h1>
 
-            {/* 🔹 Filter Form */}
             <form onSubmit={applyFilters} className="mb-6 flex flex-wrap gap-4 items-center justify-center">
                 <input
                     type="text"
