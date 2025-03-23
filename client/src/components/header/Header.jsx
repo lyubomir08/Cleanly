@@ -6,10 +6,15 @@ export default function Header() {
     const { user, logout } = useContext(UserContext);
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [logoutError, setLogoutError] = useState(null);
 
     const logoutClickHandler = async () => {
-        logout();
-        navigate("/");
+        try {
+            logout();
+            navigate("/");
+        } catch (error) {
+            setLogoutError(error.message || "Failed to log out. Please try again.");
+        }
     };
 
     return (
@@ -53,6 +58,10 @@ export default function Header() {
                     </ul>
                 </nav>
             </div>
+
+            {logoutError && (
+                <p className="text-red-500 text-center mt-2">{logoutError}</p>
+            )}
 
             {isMenuOpen && (
                 <nav className="lg:hidden bg-gray-800 text-white absolute top-16 left-0 w-full shadow-md">
