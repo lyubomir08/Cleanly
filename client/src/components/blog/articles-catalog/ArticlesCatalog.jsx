@@ -12,6 +12,7 @@ export default function ArticlesCatalog() {
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [fetchError, setFetchError] = useState(null);
 
     useEffect(() => {
         async function fetchArticles() {
@@ -19,7 +20,7 @@ export default function ArticlesCatalog() {
                 const data = await getAllArticles();
                 setArticles(data);
             } catch (error) {
-                console.error("Error fetching articles:", error.message);
+                setFetchError(error.message || "Failed to load articles. Please try again later.");
             } finally {
                 setLoading(false);
             }
@@ -47,7 +48,11 @@ export default function ArticlesCatalog() {
                 )}
             </div>
 
-            {articles.length === 0 ? (
+            {fetchError && (
+                <p className="text-center text-red-500 text-lg font-semibold mb-6">{fetchError}</p>
+            )}
+
+            {articles.length === 0 && !fetchError ? (
                 <p className="text-center text-gray-500 text-lg font-semibold">📭 No articles found.</p>
             ) : (
                 <div className="flex flex-col gap-6">

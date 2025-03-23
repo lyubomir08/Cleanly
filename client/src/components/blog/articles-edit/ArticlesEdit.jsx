@@ -1,8 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
-
 import { getArticleById, updateArticle } from "../../../services/articleService";
-
 import { UserContext } from "../../../contexts/UserContext";
 
 export default function ArticlesEdit() {
@@ -14,9 +12,10 @@ export default function ArticlesEdit() {
     const [content, setContent] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [formErrors, setFormErrors] = useState({ title: "", content: "" });
 
     useEffect(() => {
-        async function fetchArticles() {
+        async function fetchArticle() {
             try {
                 const data = await getArticleById(id);
 
@@ -28,23 +27,41 @@ export default function ArticlesEdit() {
                 setTitle(data.title);
                 setContent(data.content);
             } catch (error) {
-                console.error("Error fetching article:", error.message);
-                setError("Article not found or you do not have permission to edit it.");
+                setError(err.message || "Article not found or you do not have permission to edit it.");
             } finally {
                 setLoading(false);
             }
         }
 
-        fetchArticles();
+        fetchArticle();
     }, [id, user]);
+
+    const validate = () => {
+        const errors = { title: "", content: "" };
+        let isValid = true;
+
+        if (title.trim().length < 5) {
+            errors.title = "Title must be at least 5 characters long.";
+            isValid = false;
+        }
+
+        if (content.trim().length < 20) {
+            errors.content = "Content must be at least 20 characters long.";
+            isValid = false;
+        }
+
+        setFormErrors(errors);
+        return isValid;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
 
+        if (!validate()) return;
+
         try {
             await updateArticle(id, { title, content });
-
             navigate("/articles");
         } catch (error) {
             setError(error.message || "Failed to update the article.");
@@ -52,7 +69,6 @@ export default function ArticlesEdit() {
     };
 
     if (loading) return <p className="text-center text-gray-500">Loading...</p>;
-    if (error) return <p className="text-center text-red-500">{error}</p>;
 
     return (
         <div className="max-w-3xl mx-auto px-6 py-8">
@@ -68,8 +84,8 @@ export default function ArticlesEdit() {
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        required
                     />
+                    {formErrors.title && <p className="text-red-500 text-sm mt-1">{formErrors.title}</p>}
                 </div>
 
                 <div className="mb-4">
@@ -79,8 +95,8 @@ export default function ArticlesEdit() {
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        required
                     />
+                    {formErrors.content && <p className="text-red-500 text-sm mt-1">{formErrors.content}</p>}
                 </div>
 
                 <div className="flex justify-end gap-4">

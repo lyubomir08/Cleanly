@@ -1,13 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { UserContext } from "../../../../contexts/UserContext";
-
 import { deleteArticle } from "../../../../services/articleService";
 
 export default function ArticleItem({ article }) {
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
+    const [deleteError, setDeleteError] = useState(null);
 
     const isAuthor = user?._id === article.author?._id;
 
@@ -18,6 +18,7 @@ export default function ArticleItem({ article }) {
                 window.location.reload();
             } catch (error) {
                 console.error("Error deleting article:", error.message);
+                setDeleteError(error.message || "Failed to delete the article. Please try again.");
             }
         }
     };
@@ -29,6 +30,10 @@ export default function ArticleItem({ article }) {
             <p className="text-sm text-gray-500 mt-4">
                 Author: {article.author?.username || "Anonymous"}
             </p>
+
+            {deleteError && (
+                <p className="text-red-500 mt-2 font-medium">{deleteError}</p>
+            )}
 
             {isAuthor && (
                 <div className="flex gap-4 mt-6">
