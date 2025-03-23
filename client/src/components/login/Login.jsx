@@ -30,17 +30,10 @@ export default function Login() {
         }
     
         const password = formData.password;
-        const hasUpperCase = /[A-Z]/.test(password);
-        const hasLowerCase = /[a-z]/.test(password);
-        const hasNumber = /[0-9]/.test(password);
         const hasMinLength = password.length >= 5;
     
         if (!hasMinLength) {
             errors.password = "Password must be at least 5 characters.";
-            isValid = false;
-        } else if (!hasUpperCase || !hasLowerCase || !hasNumber) {
-            errors.password =
-                "Password must include uppercase, lowercase, and a number.";
             isValid = false;
         }
     
