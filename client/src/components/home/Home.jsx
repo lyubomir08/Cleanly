@@ -3,9 +3,13 @@ import { useNavigate } from "react-router";
 
 import { getAllServices } from "../../services/serviceService";
 
+import ServiceItem from "./service-item/ServiceItem";
+import LoadingSpinner from "../loading-spinner/LoadingSpinner";
+
 export default function Home() {
     const [services, setServices] = useState([]);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,6 +19,8 @@ export default function Home() {
                 setServices(data.slice(0, 3));
             } catch (error) {
                 setError(error.message || "Failed to load services. Please try again later.");
+            } finally {
+                setLoading(false);
             }
         }
         fetchServices();
@@ -42,28 +48,14 @@ export default function Home() {
 
             <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Some of our Services</h2>
 
-            {error ? (
+            {loading ? (
+                <LoadingSpinner />
+            ) : error ? (
                 <p className="text-center text-red-500 text-lg font-medium">{error}</p>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center">
                     {services.map((service) => (
-                        <div
-                            key={service._id}
-                            className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center text-center w-80 transition-transform transform hover:scale-105"
-                        >
-                            <img
-                                src={service.imageUrl}
-                                alt={service.name}
-                                className="w-full h-48 object-cover rounded-md mb-4"
-                            />
-                            <h3 className="text-xl font-semibold text-gray-900">{service.name}</h3>
-                            <button
-                                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500 transition-transform transform hover:scale-105"
-                                onClick={() => navigate(`services/${service._id}/details`)}
-                            >
-                                View Details
-                            </button>
-                        </div>
+                        <ServiceItem key={service._id} service={service} />
                     ))}
                 </div>
             )}
