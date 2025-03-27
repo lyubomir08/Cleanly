@@ -1,3 +1,5 @@
+import { clearUserData } from "../utils/storage";
+
 const API_BASE_URL = "http://localhost:5000/api";
 
 const getAuthHeaders = () => {
@@ -8,7 +10,15 @@ const getAuthHeaders = () => {
 const handleResponse = async (response) => {
     const data = await response.json();
     if (!response.ok) {
-        throw new Error(data.message || "Грешка в заявката");
+        if (response.status === 401 && data.message && (
+            data.message.toLowerCase().includes("token") ||
+            data.message.toLowerCase().includes("not authenticated")
+        )) {
+            clearUserData();
+            window.location.href = "/login";
+        }
+
+        throw new Error(data.message || "Error in request");
     }
     return data;
 };
