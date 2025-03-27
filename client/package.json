@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://lyubomir08.github.io/cleanly",
+  "homepage": "https://lyubomir08.github.io/Cleanly",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
