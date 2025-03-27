@@ -59,7 +59,7 @@ export default function Profile() {
 
         try {
             setLoading(true);
-            
+
             await deleteUserBooking(bookingId);
             const updatedProfile = await getProfile();
 
@@ -98,10 +98,12 @@ export default function Profile() {
                 <p className="text-red-500 text-center mb-4">{errorMsg}</p>
             )}
 
-            <BookingsUser
-                bookings={profileData?.bookings || []}
-                handleDeleteBooking={handleDeleteBooking}
-            />
+            {user.role !== "admin" && (
+                <BookingsUser
+                    bookings={profileData?.bookings || []}
+                    handleDeleteBooking={handleDeleteBooking}
+                />
+            )}
 
             {user?.role === "admin" && (
                 <>
