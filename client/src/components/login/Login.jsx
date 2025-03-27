@@ -21,12 +21,19 @@ export default function Login() {
         const errors = { email: "", password: "" };
         let isValid = true;
     
-        if (!formData.email || formData.email.trim().length < 5) {
-            errors.email = "Email is too short.";
-            isValid = false;
-        } else if (!formData.email.includes("@") || !formData.email.includes(".")) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const allowedDomains = ["gmail.com", "abv.bg"];
+    
+        if (!formData.email || !emailRegex.test(formData.email)) {
             errors.email = "Please enter a valid email (example@mail.com).";
             isValid = false;
+        } else {
+            const domain = formData.email.split("@")[1];
+            
+            if (!allowedDomains.includes(domain)) {
+                errors.email = "Only gmail.com and abv.bg emails are allowed.";
+                isValid = false;
+            }
         }
     
         const password = formData.password;
@@ -40,7 +47,6 @@ export default function Login() {
         setFormErrors(errors);
         return isValid;
     };
-    
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -23,14 +23,24 @@ export default function Register() {
         const errors = {};
         let isValid = true;
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const allowedDomains = ["gmail.com", "abv.bg"];
+
         if (formData.username.length < 3) {
             errors.username = "Username must be at least 3 characters.";
             isValid = false;
         }
 
-        if (!formData.email.includes("@") || !formData.email.includes(".")) {
-            errors.email = "Please enter a valid email.";
+        if (!emailRegex.test(formData.email)) {
+            errors.email = "Please enter a valid email (example@mail.com).";
             isValid = false;
+        } else {
+            const domain = formData.email.split("@")[1];
+            
+            if (!allowedDomains.includes(domain)) {
+                errors.email = "Only gmail.com and abv.bg emails are allowed.";
+                isValid = false;
+            }
         }
 
         const password = formData.password;
