@@ -18,7 +18,10 @@ const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
 
 const corsOptions = {
-    origin: ["http://localhost:5173"],
+    origin: [
+        "http://localhost:5173",
+        "https://lyubomir08.github.io",
+    ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
 };
