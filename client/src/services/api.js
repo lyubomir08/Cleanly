@@ -15,7 +15,7 @@ const handleResponse = async (response) => {
             data.message.toLowerCase().includes("not authenticated")
         )) {
             clearUserData();
-            window.location.href = "/login";
+            window.location.href = "/Cleanly/login";
         }
 
         throw new Error(data.message || "Error in request");
