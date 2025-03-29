@@ -12,6 +12,8 @@ vi.mock('react-router', async () => {
     }
 });
 
+import { useNavigate } from 'react-router';
+
 describe('ServiceItem component', () => {
     const service = {
         _id: 'abc123',
