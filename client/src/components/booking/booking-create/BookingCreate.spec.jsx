@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Routes, useNavigate, useParams } from 'react-router';
+import { MemoryRouter } from 'react-router';
 import BookingCreate from './BookingCreate';
 
 vi.mock('../../../services/bookingService', () => ({
@@ -63,11 +63,7 @@ describe('BookingCreate component', () => {
         const mockCreate = createBooking;
         mockCreate.mockRejectedValueOnce({ message: 'Booking failed' });
 
-        render(
-            <MemoryRouter>
-                <BookingCreate />
-            </MemoryRouter>
-        );
+        render(<MemoryRouter><BookingCreate /></MemoryRouter>);
 
         fireEvent.change(screen.getByLabelText(/date/i), {
             target: { value: '2025-05-01' },
