@@ -64,7 +64,7 @@ describe('Register component', () => {
         expect(await screen.findByText(/passwords do not match/i)).toBeInTheDocument();
     });
 
-    it('calls register with correct data on valid submit', async () => {
+    it('should call register with correct data on valid submit', async () => {
         renderWithContext(<Register />);
 
         fireEvent.change(screen.getByLabelText(/username/i), {
@@ -91,7 +91,7 @@ describe('Register component', () => {
         });
     })
 
-    it('shows submit error when registration fails', async () => {
+    it('should show submit error when registration fails', async () => {
         mockRegister.mockRejectedValueOnce({ message: 'Registration failed' });
 
         renderWithContext(<Register />);
