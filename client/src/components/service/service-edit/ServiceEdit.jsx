@@ -100,8 +100,9 @@ export default function ServiceEdit() {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-gray-700 font-medium mb-2">Service Name</label>
+                        <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Service Name</label>
                         <input
+                            id="name"
                             type="text"
                             name="name"
                             value={formData.name}
@@ -114,8 +115,9 @@ export default function ServiceEdit() {
                     </div>
 
                     <div>
-                        <label className="block text-gray-700 font-medium mb-2">Description</label>
+                        <label htmlFor="description" className="block text-gray-700 font-medium mb-2">Description</label>
                         <textarea
+                            id="description"
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
@@ -127,8 +129,9 @@ export default function ServiceEdit() {
                     </div>
 
                     <div>
-                        <label className="block text-gray-700 font-medium mb-2">Price ($)</label>
+                        <label htmlFor="price" className="block text-gray-700 font-medium mb-2">Price ($)</label>
                         <input
+                            id="price"
                             type="number"
                             name="price"
                             value={formData.price}
@@ -141,8 +144,9 @@ export default function ServiceEdit() {
                     </div>
 
                     <div>
-                        <label className="block text-gray-700 font-medium mb-2">Image URL</label>
+                        <label htmlFor="imageUrl" className="block text-gray-700 font-medium mb-2">Image URL</label>
                         <input
+                            id="imageUrl"
                             type="text"
                             name="imageUrl"
                             value={formData.imageUrl}
