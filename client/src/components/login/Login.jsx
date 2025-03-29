@@ -76,8 +76,9 @@ export default function Login() {
 
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700">Email</label>
+                        <label htmlFor="email" className="block text-gray-700">Email</label>
                         <input
+                            id="email"
                             type="text"
                             value={formData.email}
                             onChange={handleChange}
@@ -90,8 +91,9 @@ export default function Login() {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700">Password</label>
+                        <label htmlFor="password" className="block text-gray-700">Password</label>
                         <input
+                            id="password"
                             type="password"
                             value={formData.password}
                             onChange={handleChange}
