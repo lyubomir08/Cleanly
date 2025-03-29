@@ -94,8 +94,9 @@ export default function Register() {
 
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700">Username</label>
+                        <label htmlFor="username" className="block text-gray-700">Username</label>
                         <input
+                            id="username"
                             type="text"
                             value={formData.username}
                             onChange={handleChange}
@@ -108,8 +109,9 @@ export default function Register() {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700">Email</label>
+                        <label htmlFor="email" className="block text-gray-700">Email</label>
                         <input
+                            id="email"
                             type="text"
                             value={formData.email}
                             onChange={handleChange}
@@ -122,8 +124,9 @@ export default function Register() {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700">Password</label>
+                        <label htmlFor="password" className="block text-gray-700">Password</label>
                         <input
+                            id="password"
                             type="password"
                             value={formData.password}
                             onChange={handleChange}
@@ -136,8 +139,9 @@ export default function Register() {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700">Confirm Password</label>
+                        <label htmlFor="rePassword" className="block text-gray-700">Confirm Password</label>
                         <input
+                            id="rePassword"
                             type="password"
                             value={formData.rePassword}
                             onChange={handleChange}
