@@ -1,5 +1,4 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, expect, vi } from 'vitest';
 import { MemoryRouter } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
 import Login from './Login';
@@ -78,7 +77,7 @@ describe('Login Component', () => {
         fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
         await waitFor(() => {
-            expect(loginMock).toHaveBeenCalledWith('user@abv,bg', '12345');
+            expect(loginMock).toHaveBeenCalledWith('user@abv.bg', '12345');
         });
     });
 
