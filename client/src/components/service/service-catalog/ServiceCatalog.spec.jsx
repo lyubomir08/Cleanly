@@ -49,7 +49,7 @@ describe('ServiceCatalog component', () => {
         expect(await screen.findByText(/no services found/i)).toBeInTheDocument();
     });
 
-    it('displays services when data is returned', async () => {
+    it('should display services when data is returned', async () => {
         getAllServices.mockResolvedValueOnce([
             {
                 _id: '1',
@@ -67,7 +67,7 @@ describe('ServiceCatalog component', () => {
         expect(screen.getByText(/\$50/)).toBeInTheDocument();
     })
 
-    it('calls filterServices on form submit', async () => {
+    it('should call filterServices on form submit', async () => {
         getAllServices.mockResolvedValueOnce([]);
         filterServices.mockResolvedValueOnce([]);
 
