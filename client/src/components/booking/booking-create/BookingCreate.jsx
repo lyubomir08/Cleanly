@@ -64,8 +64,10 @@ export default function BookingCreate() {
                 ) : (
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
-                            <label className="block text-gray-700 font-medium">Date</label>
+                            <label htmlFor="date" className="block text-gray-700 font-medium">Date</label>
                             <input
+                                id="date"
+                                name="date"
                                 type="date"
                                 className="w-full px-4 py-2 border rounded-lg"
                                 value={date}
@@ -77,8 +79,10 @@ export default function BookingCreate() {
                         </div>
 
                         <div>
-                            <label className="block text-gray-700 font-medium">Time</label>
+                            <label htmlFor="time" className="block text-gray-700 font-medium">Time</label>
                             <input
+                                id="time"
+                                name="time"
                                 type="time"
                                 className="w-full px-4 py-2 border rounded-lg"
                                 value={time}
