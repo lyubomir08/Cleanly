@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import ServiceItem from './ServiceItem';
-import { MemoryRouter, useNavigate } from 'react-router';
+import { MemoryRouter } from 'react-router';
 
 const navigateMock = vi.fn();
 
