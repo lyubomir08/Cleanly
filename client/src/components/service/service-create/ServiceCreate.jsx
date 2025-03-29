@@ -70,8 +70,9 @@ export default function ServiceCreate() {
 
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700">Service Name</label>
+                        <label htmlFor="name" className="block text-gray-700">Service Name</label>
                         <input
+                            id="name"
                             type="text"
                             name="name"
                             value={formData.name}
@@ -84,8 +85,9 @@ export default function ServiceCreate() {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700">Description</label>
+                        <label htmlFor="description" className="block text-gray-700">Description</label>
                         <textarea
+                            id="description"
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
@@ -97,8 +99,9 @@ export default function ServiceCreate() {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700">Price</label>
+                        <label htmlFor="price" className="block text-gray-700">Price</label>
                         <input
+                            id="price"
                             type="number"
                             name="price"
                             value={formData.price}
@@ -111,8 +114,9 @@ export default function ServiceCreate() {
                     </div>
 
                     <div className="mb-6">
-                        <label className="block text-gray-700">Image URL</label>
+                        <label htmlFor="imageUrl" className="block text-gray-700">Image URL</label>
                         <input
+                            id="imageUrl"
                             type="text"
                             name="imageUrl"
                             value={formData.imageUrl}
