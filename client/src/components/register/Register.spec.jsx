@@ -64,6 +64,29 @@ describe('Register component', () => {
         expect(await screen.findByText(/passwords do not match/i)).toBeInTheDocument();
     });
 
+    it('should show error for unsupported email domain', async () => {
+        renderWithContext(<Register />);
+
+        fireEvent.change(screen.getByLabelText(/username/i), {
+            target: { name: 'username', value: 'ivan' },
+        });
+
+        fireEvent.change(screen.getByLabelText(/email/i), {
+            target: { name: 'email', value: 'ivan@yahoo.com' },
+        });
+
+        fireEvent.change(screen.getByLabelText(/^password$/i), {
+            target: { name: 'password', value: '12345' },
+        });
+
+        fireEvent.change(screen.getByLabelText(/confirm password/i), {
+            target: { name: 'rePassword', value: '12345' },
+        });
+
+        fireEvent.click(screen.getByRole('button', { name: /sign up/i }));
+        expect(await screen.findByText(/only gmail.com and abv.bg emails are allowed/i)).toBeInTheDocument();
+    });
+
     it('should call register with correct data on valid submit', async () => {
         renderWithContext(<Register />);
 
