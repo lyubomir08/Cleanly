@@ -15,7 +15,7 @@ export default function ArticleItem({ article }) {
         if (window.confirm("Are you sure you want to delete this article?")) {
             try {
                 await deleteArticle(article._id);
-                navigate("/articles");
+                window.location.reload();
             } catch (error) {
                 setDeleteError(error.message || "Failed to delete the article. Please try again.");
             }
