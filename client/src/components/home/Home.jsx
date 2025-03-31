@@ -31,7 +31,7 @@ export default function Home() {
     return (
         <div className={styles.container}>
             <section className={styles.hero}>
-                <h1 className={styles.heroTitle}>Welcome to Cleanify!</h1>
+                <h1 className={styles.heroTitle}>Welcome to Cleanly!</h1>
                 <p className={styles.heroText}>
                     We provide high-quality cleaning services to make your home and office spotless.
                     Let us take care of the mess while you enjoy a cleaner, healthier environment.
