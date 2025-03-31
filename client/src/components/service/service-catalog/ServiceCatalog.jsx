@@ -51,6 +51,13 @@ export default function ServiceCatalog() {
             const filteredData = await filterServices(filters);
 
             setServices(filteredData);
+
+            setFilters((prev) => ({
+                name: "",
+                minPrice: "",
+                maxPrice: "",
+                sortBy: prev.sortBy,
+            }));
         } catch (error) {
             setErrorMsg(error.message || "Failed to apply filters.");
         } finally {
