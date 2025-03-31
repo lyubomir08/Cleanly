@@ -17,19 +17,25 @@ export default function ServiceCatalog() {
     const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
-        loadServices();
-    }, []);
+        let ignore = false;
 
-    const loadServices = async () => {
-        try {
-            const data = await getAllServices();
-            setServices(data);
-        } catch (error) {
-            setErrorMsg(error.message || "Failed to load services. Please try again later.");
-        } finally {
-            setLoading(false);
-        }
-    };
+        const loadServices = async () => {
+            try {
+                const data = await getAllServices();
+                if (!ignore) setServices(data);
+            } catch (error) {
+                if (!ignore) setErrorMsg(error.message || "Failed to load services. Please try again later.");
+            } finally {
+                if (!ignore) setLoading(false);
+            }
+        };
+
+        loadServices();
+
+        return () => {
+            ignore = true;
+        };
+    }, []);
 
     const handleFilterChange = (e) => {
         setFilters({ ...filters, [e.target.name]: e.target.value });

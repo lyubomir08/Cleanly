@@ -22,19 +22,24 @@ export default function ServiceDetails() {
     const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
+        let ignore = false;
+
         const fetchService = async () => {
             try {
                 const data = await getServiceById(id);
-
-                setService(data);
+                if (!ignore) setService(data);
             } catch (error) {
-                setErrorMsg(error.message || "Failed to load service. Please try again later.");
+                if (!ignore) setErrorMsg(error.message || "Failed to load service. Please try again later.");
             } finally {
-                setLoading(false);
+                if (!ignore) setLoading(false);
             }
         };
 
         fetchService();
+
+        return () => {
+            ignore = true;
+        };
     }, [id]);
 
     const handleDelete = async () => {

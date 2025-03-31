@@ -19,26 +19,38 @@ export default function Profile() {
     const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
+        let ignore = false;
+
         const fetchData = async () => {
             try {
                 const data = await getProfile();
-                setProfileData(data);
+                if (!ignore) setProfileData(data);
 
                 if (user?.role === "admin") {
                     const users = await getAllUsers();
                     const pending = await getPendingBookings();
 
-                    setAllUsers(users);
-                    setPendingBookings(pending);
+                    if (!ignore) {
+                        setAllUsers(users);
+                        setPendingBookings(pending);
+                    }
                 }
             } catch (error) {
-                setErrorMsg(error.message || "Failed to load profile data.");
+                if (!ignore) {
+                    setErrorMsg(error.message || "Failed to load profile data.");
+                }
             } finally {
-                setLoading(false);
+                if (!ignore) setLoading(false);
             }
         };
+
         fetchData();
+
+        return () => {
+            ignore = true;
+        };
     }, [user]);
+
 
     const handleChangeRole = async (userId, currentRole) => {
         const newRole = currentRole === "user" ? "admin" : "user";
