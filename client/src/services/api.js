@@ -1,6 +1,6 @@
 import { clearUserData } from "../utils/storage";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = 'http://localhost:5000/api';
 
 const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
@@ -15,7 +15,7 @@ const handleResponse = async (response) => {
             data.message.toLowerCase().includes("not authenticated")
         )) {
             clearUserData();
-            window.location.href = "/Cleanly/login";
+            window.location.href = "/login";
         }
 
         throw new Error(data.message || "Error in request");
